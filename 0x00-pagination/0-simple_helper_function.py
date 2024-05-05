@@ -1,26 +1,22 @@
 #!/usr/bin/env python3
 """
-Module 0-simple_helper_function
-
-Demonstrate a function that return a tuple of size two containing a start
-index and an end index
+This module provides a function to calculate the start and end indexes for
+a given page and page size.
 """
 from typing import Tuple
 
 
-def index_range(page: int, page_size: int) -> Tuple:
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Returns a tuple of size two containing a start index and an end index
-    corresponding to the range of indexes to return in a list for those
-    particular pagination parameters.
+    Calculate the start and end indexes for a given page and page size.
 
     Parameters:
-    - page (int): Page number
-    - page_size (int): Number of items per page
+        page (int): The page number.
+        page_size (int): The number of items per page.
 
     Returns:
-    - tuple: Start index and end index
+        Tuple[int, int]: A tuple containing the start index and end index.
     """
-    start_index = (page - 1) * page_size if page > 1 else 0
+    start_index = (page - 1) * page_size
     end_index = page * page_size
-    return (start_index, end_index,)
+    return start_index, end_index
