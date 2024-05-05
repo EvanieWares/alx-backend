@@ -30,23 +30,35 @@ class Server:
 
         return self.__dataset
 
-    def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        pass
+    def get_page(self, page: int = 1, page_size: int = 10) -> List:
+        """
+        Get a page of dataset.
+
+        Args:
+            page (int): The page number, defaults to 1.
+            page_size (int): The number of items per page, defaults to 10.
+
+        Returns:
+            List: A list of lists representing a page of the dataset.
+        """
+        assert isinstance(page, int) and page > 0
+        assert isinstance(page_size, int) and page_size > 0
+        startIndex, endIndex = index_range(page, page_size)
+        dataset = self.dataset()
+        return dataset[startIndex:endIndex]
 
 
-def index_range(page: int, page_size: int) -> Tuple:
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Returns a tuple of size two containing a start index and an end index
-    corresponding to the range of indexes to return in a list for those
-    particular pagination parameters.
+    Calculate the start and end indexes for a given page and page size.
 
     Parameters:
-    - page (int): Page number
-    - page_size (int): Number of items per page
+        page (int): The page number.
+        page_size (int): The number of items per page.
 
     Returns:
-    - tuple: Start index and end index
+        Tuple[int, int]: A tuple containing the start index and end index.
     """
-    start_index = (page - 1) * page_size if page > 1 else 0
+    start_index = (page - 1) * page_size
     end_index = page * page_size
-    return (start_index, end_index,)
+    return start_index, end_index
