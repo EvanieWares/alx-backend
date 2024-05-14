@@ -2,7 +2,6 @@
 """
 Force locale with URL parameter
 """
-
 import babel
 from flask import Flask, render_template, request
 from flask_babel import Babel
@@ -13,7 +12,8 @@ babel = Babel(app)
 
 class Config:
     """
-    Config class
+    Config class.
+    Contains configuration for the Babel plugin.
     """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
@@ -26,8 +26,16 @@ app.config.from_object(Config)
 @babel.localeselector
 def get_locale():
     """
-    detect if the incoming request contains locale
-    argument and ifs value is a supported locale, return it
+    Determine the best match of the incoming request's locale
+    from the LANGUAGES configuration variable.
+
+    This is done by looking at the best match of the
+    `accept_languages` attribute of the request object
+    against the LANGUAGES configuration variable.
+
+    Returns:
+        str: The best match of the incoming request's locale
+             from the LANGUAGES configuration variable.
     """
     locale = request.args.get('locale')
     if locale:
@@ -37,9 +45,7 @@ def get_locale():
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def index():
-    """
-    hello world
-    """
+    """Returns the 0-index.html template."""
     return render_template('4-index.html')
 
 
