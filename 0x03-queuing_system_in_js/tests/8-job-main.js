@@ -1,5 +1,5 @@
 import kue from 'kue';
-import createPushNotificationsJobs from './8-job';
+import createPushNotificationsJobs from '../8-job';
 
 const queue = kue.createQueue();
 
